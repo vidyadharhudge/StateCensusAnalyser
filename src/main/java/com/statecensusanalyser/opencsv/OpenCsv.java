@@ -2,22 +2,20 @@ package com.statecensusanalyser.opencsv;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.statecensusanalyser.ICSVBuilder;
 
 import java.io.BufferedReader;
 import java.util.Iterator;
 
-public class OpenCsv
+public class OpenCsv implements ICSVBuilder
 {
-    public static <E> Iterator<E> getCSVfile(BufferedReader reader, Class<E> csvClass)
+    @Override
+    public Iterator<ICSVBuilder> getCSVfile(BufferedReader reader, Class csvClass)
     {
-        return getcsvToBean(reader, csvClass).iterator();
-    }
-    public static <E> CsvToBean<E> getcsvToBean(BufferedReader reader, Class<E> csvClass)
-    {
-        CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder<E>(reader);
+        CsvToBeanBuilder<ICSVBuilder> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
         csvToBeanBuilder.withType(csvClass);
         csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
-        CsvToBean<E> csvToBean = csvToBeanBuilder.build();
-        return csvToBean;
+        CsvToBean<ICSVBuilder> csvToBean = csvToBeanBuilder.build();
+        return csvToBean.iterator();
     }
 }
