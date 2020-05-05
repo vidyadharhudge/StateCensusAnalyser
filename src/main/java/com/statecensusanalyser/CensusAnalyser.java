@@ -40,10 +40,11 @@ public class CensusAnalyser<E>
         {
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, "Enter Correct File And Type For State Censes Data");
         }
-        catch (RuntimeException e)
+        catch (RuntimeException  e)
         {
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_DELIMITER, "Check Delimiter And Header For State Censes Data");
         }
+
     }
     private <E> int getCount(Iterator<E> iterator)
     {
@@ -51,5 +52,4 @@ public class CensusAnalyser<E>
         int numberOfEntries=(int)StreamSupport.stream(csviterable.spliterator(),false).count();
         return numberOfEntries;
     }
-
 }
