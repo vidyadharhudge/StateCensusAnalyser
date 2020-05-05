@@ -1,37 +1,88 @@
 package com.statecensusanalyser;
+import com.google.gson.Gson;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.statecensusanalyser.exception.CensusAnalyserException;
+import com.statecensusanalyser.model.IndianStateCensusAnalyser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.StreamSupport;
 
-public class CensusAnalyser {
-    public static void main(String[] args) {
+public class CensusAnalyser<E>
+{
+    List<E> censusCSVlist=null;
+
+    // welcome message
+    public static void main(String[] args)
+    {
         System.out.println("Welcome To Indian State Censes Analyser");
     }
 
-    public static Integer readFile(String filePath) throws CensusAnalyserException {
-        int count = 0;
-        try {
+    ///Read State Census Data CSV file
+    //Iterable is interface allow object to make use of for each loop it does internally by calling iterator methode object
+    //spliterator() It helps in processing the collection data in parallel
+    public int readFile(String filePath, Object E)
+    {
+        try
+        {
             BufferedReader reader = Files.newBufferedReader(Paths.get(filePath));
-
-            CsvToBean<IndianStateCensesAnalyzer> csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(IndianStateCensesAnalyzer.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-            Iterator<IndianStateCensesAnalyzer> stateCensesAnalyzerClassIterator = csvToBean.iterator();
-            while (stateCensesAnalyzerClassIterator.hasNext()) {
-                IndianStateCensesAnalyzer indianStateCensesAnalyzer = stateCensesAnalyzerClassIterator.next();
-                count++;
-            }
-        } catch (IOException e) {
-            throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, "Enter Correct File And Type");
-        } catch (RuntimeException e) {
-            throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_DELIMITER, "Check Delimiter And Header");
+            ICSVBuilder icsvBuilder=CSVBuilderFactory.createCSVBuilder();
+            censusCSVlist=icsvBuilder.getCSVFileList(reader,E.getClass());
+            return censusCSVlist.size();
         }
-        return count;
+        catch (IOException e)
+        {
+            throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, "Enter Correct File And Type For State Censes Data");
+        }
+        catch (RuntimeException  e)
+        {
+            throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_DELIMITER, "Check Delimiter And Header For State Censes Data");
+        }
+
+    }
+    // no of entries in Csv File
+    private <E> int getCount(Iterator<E> iterator)
+    {
+        Iterable<E> csviterable=()->iterator;
+        int numberOfEntries=(int) StreamSupport.stream(csviterable.spliterator(),false).count();
+        return numberOfEntries;
+    }
+
+    //Getting Data Of State
+    public String getStateWiseSortedData(Object E)
+    {
+        if (censusCSVlist.size()==0 || censusCSVlist==null)
+        {
+            throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.NO_CENSUS_DATA,"No Data Is Prsent");
+        }
+        Comparator<E>indianStateCensesAnalyzerComparator=Comparator.comparing(IndianStateCensesAnalyzer->IndianStateCensesAnalyzer.toString());
+        this.sort(indianStateCensesAnalyzerComparator);
+        String sortedCensusJson=new Gson().toJson(censusCSVlist);
+        return sortedCensusJson;
+    }
+
+    //Function To Sorted States
+    public void sort(Comparator<E> indianStateCensesAnalyzerComparator)
+    {
+        for (int i = 0; i<censusCSVlist.size()-1; i++)
+        {
+            for (int j=0;j<censusCSVlist.size()-i-1; j++)
+            {
+                E censesAnalyzer1=censusCSVlist.get(j);
+                E censesAnalyzer2=censusCSVlist.get(j+1);
+                if(indianStateCensesAnalyzerComparator.compare(censesAnalyzer1,censesAnalyzer2)>0)
+                {
+                    censusCSVlist.set(j,censesAnalyzer2);
+                    censusCSVlist.set(j+1,censesAnalyzer1);
+                }
+
+             }
+        }
     }
 
 }

@@ -1,8 +1,8 @@
-package com.statecensusanalyser;
+package com.statecensusanalyser.model;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class IndianStateCensesAnalyzer
+public class IndianStateCensusAnalyser
 {
     @CsvBindByName(column="State")
     public String state;
