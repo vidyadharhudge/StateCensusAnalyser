@@ -50,7 +50,6 @@ public class CensusAnalyser<E>
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_DELIMITER, "Check Delimiter And Header For State Censes Data");
         }
     }
-
     // no of entries in Csv File
     private <E> int getCount(Iterator<E> iterator)
     {
@@ -83,7 +82,6 @@ public class CensusAnalyser<E>
         String sortedCensusJson=new Gson().toJson(censusCSVlist);
         return sortedCensusJson;
     }
-
     // Sorting Methode
     public void sort(Comparator<E>indianStateCodeComparator,List<E>censusCSVlist)
     {
