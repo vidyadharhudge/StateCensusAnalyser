@@ -177,4 +177,16 @@ public class CensusAnalyserTest
         }
     }
 
+    /* T.C 5 :Indian Code In Sorted Form  */
+    @Test
+    public void givenIndianCensusCode_WhenSorted_ThenShouldReturnSortedPopulation() {
+        try {
+            censusAnalyser.readFile(INDIA_CENSUS_CSV_FILE_PATH, IndianStateCensusAnalyser.class);
+            String sortedData = censusAnalyser.SortedCode(IndiaCensusDAO.class);
+            IndianStateCensusAnalyser[] indianStateCensesAnalyzers = new Gson().fromJson(sortedData, IndianStateCensusAnalyser[].class);
+            Assert.assertEquals(103804637,indianStateCensesAnalyzers[0].getPopulation());
+        } catch (CensusAnalyserException e) {
+        }
+    }
+
 }
