@@ -160,4 +160,18 @@ public class CensusAnalyserTest
         }
     }
 
+    /* T.C 4.1 :Indian Code In Sorted Form  */
+    @Test
+    public void givenIndianCensusCode_WhenSorted_ThenShouldReturnSortedDataStartStateAndEndState() {
+        try {
+            censusAnalyser.readFile(STATE_CODE_CSV_FILE, IndianStateCode.class);
+            String sortedData = censusAnalyser.getStateWiseSortedCode(IndianStateCode.class);
+            IndianStateCode[] indianStateCodes = new Gson().fromJson(sortedData, IndianStateCode[].class);
+            Assert.assertEquals("AD", indianStateCodes[0].getStateCode());
+            Assert.assertEquals("WB", indianStateCodes[36].getStateCode());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
