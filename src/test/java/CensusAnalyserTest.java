@@ -1,6 +1,7 @@
 import com.google.gson.Gson;
 import com.statecensusanalyser.CensusAnalyser;
 import com.statecensusanalyser.CsvStates;
+import com.statecensusanalyser.IndiaCensusDAO;
 import com.statecensusanalyser.exception.CensusAnalyserException;
 import com.statecensusanalyser.model.IndianStateCensusAnalyser;
 import com.statecensusanalyser.model.IndianStateCode;
@@ -153,7 +154,7 @@ public class CensusAnalyserTest
     public void givenIndianCensusData_WhenSorted_ThenShouldReturnSortedDataStartStateAndEndState() {
         try {
             censusAnalyser.readFile(INDIA_CENSUS_CSV_FILE_PATH, IndianStateCensusAnalyser.class);
-            String sortedData = censusAnalyser.getStateWiseSortedData(IndianStateCensusAnalyser.class);
+            String sortedData = censusAnalyser.SortedCode(IndianStateCensusAnalyser.class);
             IndianStateCensusAnalyser[] indianStateCensesAnalyzers = new Gson().fromJson(sortedData, IndianStateCensusAnalyser[].class);
             Assert.assertEquals("Andhra Pradesh", indianStateCensesAnalyzers[0].getState());
             Assert.assertEquals("West Bengal", indianStateCensesAnalyzers[28].getState());
@@ -167,7 +168,7 @@ public class CensusAnalyserTest
     public void givenIndianCensusCode_WhenSorted_ThenShouldReturnSortedDataStartStateAndEndState() {
         try {
             censusAnalyser.readFile(STATE_CODE_CSV_FILE, IndianStateCode.class);
-            String sortedData = censusAnalyser.getStateWiseSortedCode(IndianStateCode.class);
+            String sortedData = censusAnalyser.SortedCode(IndianStateCode.class);
             IndianStateCode[] indianStateCodes = new Gson().fromJson(sortedData, IndianStateCode[].class);
             Assert.assertEquals("AD", indianStateCodes[0].getStateCode());
             Assert.assertEquals("WB", indianStateCodes[36].getStateCode());
