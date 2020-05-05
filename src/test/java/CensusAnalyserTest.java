@@ -147,20 +147,5 @@ public class CensusAnalyserTest
         }
     }
 
-    /* T.C 3.1 :Indian Sorted Data In Sorted Form  */
-    @Test
-    public void givenIndianCensusData_WhenSorted_ThenShouldReturnSortedDataStartStateAndEndState() {
-        try {
-            censusAnalyser.readFile(INDIA_CENSUS_CSV_FILE_PATH, IndianStateCensusAnalyser.class);
-            String sortedData = censusAnalyser.getStateWiseSortedData(IndianStateCensusAnalyser.class);
-            IndianStateCensusAnalyser[] indianStateCensesAnalyzers = new Gson().fromJson(sortedData, IndianStateCensusAnalyser[].class);
-            Assert.assertEquals("Andhra Pradesh", indianStateCensesAnalyzers[0].getState());
-            Assert.assertEquals("West Bengal", indianStateCensesAnalyzers[28].getState());
-        }
-        catch (CensusAnalyserException e)
-        {
-            e.printStackTrace();
 
-        }
-    }
 }
