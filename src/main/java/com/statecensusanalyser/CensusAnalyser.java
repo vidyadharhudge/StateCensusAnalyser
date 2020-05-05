@@ -14,14 +14,12 @@ import java.util.stream.StreamSupport;
 
 public class CensusAnalyser<E>
 {
-
     List<E>censusCSVlist=null;
     Map<String,E> censusMap;
-
-    // welcome message
     public static void main(String[] args)
     {
         System.out.println("Welcome To Indian State Censes Analyser");
+
     }
     public CensusAnalyser()
     {
@@ -41,9 +39,9 @@ public class CensusAnalyser<E>
                 this.censusMap.put(E.toString(),value);
                 censusCSVlist=censusMap.values().stream().collect(Collectors.toList());
             }
-            return censusMap.size();
-        }
-        catch (IOException e)
+            int noOfRecords=censusMap.size();
+            return noOfRecords;
+        } catch (IOException e)
         {
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, "Enter Correct File And Type For State Censes Data");
         }
@@ -52,6 +50,7 @@ public class CensusAnalyser<E>
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_DELIMITER, "Check Delimiter And Header For State Censes Data");
         }
     }
+
     // no of entries in Csv File
     private <E> int getCount(Iterator<E> iterator)
     {
@@ -59,7 +58,7 @@ public class CensusAnalyser<E>
         int numberOfEntries=(int)StreamSupport.stream(csviterable.spliterator(),false).count();
         return numberOfEntries;
     }
-    //Getting Data Of State
+    // state Wise Sorted Data
     public String getStateWiseSortedData(Object E)
     {
         if (censusCSVlist.size()==0 || censusCSVlist==null)
@@ -69,9 +68,10 @@ public class CensusAnalyser<E>
         Comparator<E>indianStateCodeComparator=Comparator.comparing(IndianStateCensesAnalyzer->IndianStateCensesAnalyzer.toString());
         this.sort(indianStateCodeComparator,censusCSVlist);
         String sortedCensusJson=new Gson().toJson(censusCSVlist);
+        // System.out.println(sortedCensusJson);
         return sortedCensusJson;
     }
-    //Getting Code Of State
+    // State Wise Sorted Code
     public String getStateWiseSortedCode(Object E)
     {
         if (censusCSVlist.size()==0 || censusCSVlist==null)
@@ -84,8 +84,8 @@ public class CensusAnalyser<E>
         return sortedCensusJson;
     }
 
-    //Function To Sorted States
-    public void sort(Comparator<E>indianStateCodeComparator,List<E> censusCSVlist)
+    // Sorting Methode
+    public void sort(Comparator<E>indianStateCodeComparator,List<E>censusCSVlist)
     {
         for (int i = 0; i<censusCSVlist.size()-1; i++)
         {
@@ -98,7 +98,6 @@ public class CensusAnalyser<E>
                     censusCSVlist.set(j,censesAnalyzer2);
                     censusCSVlist.set(j+1,censesAnalyzer1);
                 }
-
             }
         }
     }

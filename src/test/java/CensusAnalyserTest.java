@@ -25,6 +25,8 @@ public class CensusAnalyserTest
         try {
             int noOfRecords = censusAnalyser.readFile(INDIA_CENSUS_CSV_FILE_PATH, IndianStateCensusAnalyser.class);
             Assert.assertEquals(29, noOfRecords);
+            int noOfRecordss=censusAnalyser.readFile(STATE_CODE_CSV_FILE, IndianStateCensusAnalyser.class);
+            Assert.assertEquals(36,noOfRecordss);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
 
