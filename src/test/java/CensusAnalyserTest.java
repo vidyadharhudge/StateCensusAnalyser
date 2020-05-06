@@ -185,4 +185,18 @@ public class CensusAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    /* Tc 8 :Given The US Census Csv File, Check To Ensure The Number Of Record Matches */
+    @Test
+    public void givenFilePathForUSCensus_WhenNoOfRecordMatches_ThenReturnTrue() {
+        try {
+            int noOfRecords = censusAnalyser.readFile(US_CENSUS_CSV_FILE_PATH, USCensusData.class);
+            Assert.assertEquals(51, noOfRecords); }
+        catch (CensusAnalyserException e) {
+             }
+    }
+
+
+
+
 }
