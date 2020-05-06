@@ -4,7 +4,6 @@ import com.opencsv.bean.CsvBindByName;
 
 public class UsCensusCsv
 {
-
     @CsvBindByName(column = "State Id", required = true)
     public String StateId;
 
@@ -19,6 +18,10 @@ public class UsCensusCsv
 
     @CsvBindByName(column = "Population Density", required = true)
     public String PopulationDensity;
+
+    public UsCensusCsv(String state) {
+        State = state;
+    }
 
     @Override
     public String toString() {

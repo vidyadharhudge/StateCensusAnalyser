@@ -2,27 +2,27 @@ package com.statecensusanalyser.model;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class IndianStateCensusAnalyser
-{
-    @CsvBindByName(column="State")
-    public String state;
+public class IndianStateCensusAnalyser {
 
-    @CsvBindByName (column ="Population")
+    @CsvBindByName(column = "State")
+    public String State;
+
+    @CsvBindByName(column = "Population")
     public int population;
 
     @CsvBindByName(column = "AreaInSqKm")
     public int area;
 
-    @CsvBindByName (column = "DensityPerSqKm")
+    @CsvBindByName(column = "DensityPerSqKm")
     public int density;
 
 
     public String getState() {
-        return state;
+        return State;
     }
 
     public void setState(String state) {
-        this.state = state;
+        this.State = state;
     }
 
     public int getPopulation() {
@@ -52,7 +52,7 @@ public class IndianStateCensusAnalyser
     @Override
     public String toString() {
         return "IndianStateCensesAnalyzer{" +
-                "state='" + state + '\'' +
+                "State='" + State + '\'' +
                 ", population=" + population +
                 ", area=" + area +
                 ", density=" + density +
