@@ -2,6 +2,7 @@ package com.statecensusanalyser;
 import com.google.gson.Gson;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.statecensusanalyser.dao.IndiaCensusDAO;
 import com.statecensusanalyser.exception.CensusAnalyserException;
 import com.statecensusanalyser.model.IndianStateCensusAnalyser;
 import java.io.BufferedReader;
@@ -39,12 +40,6 @@ public class CensusAnalyser<E> {
         catch (RuntimeException  e) {
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_DELIMITER, "Check Delimiter And Header For State Censes Data"); }
     }
-
-    // no of entries in Csv File
-    private <E> int getCount(Iterator<E> iterator) {
-        Iterable<E> csviterable=()->iterator;
-        int numberOfEntries=(int)StreamSupport.stream(csviterable.spliterator(),false).count();
-        return numberOfEntries; }
 
     // State Wise Sorted Code
     public String SortedCode(int Numbers,Object E) {

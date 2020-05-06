@@ -1,11 +1,12 @@
-package com.statecensusanalyser;
+package com.statecensusanalyser.dao;
 
 import com.statecensusanalyser.model.IndianStateCensusAnalyser;
 import com.statecensusanalyser.model.IndianStateCode;
 import com.statecensusanalyser.model.USCensusData;
 
 public class IndiaCensusDAO<E>
-{        private String State;
+{
+    private String State;
     private int population;
     private int area;
     private int density;
@@ -164,3 +165,4 @@ public class IndiaCensusDAO<E>
                 "," + HousingDensity ;
     }
 }
+
