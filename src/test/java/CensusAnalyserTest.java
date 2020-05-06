@@ -196,6 +196,19 @@ public class CensusAnalyserTest {
              }
     }
 
+    /* Tc 9 :Given The US Census Csv File, Check To Sorted Population State */
+    @Test
+    public void givenUsCensusData_WhenSorted_ThenShouldReturnSortedPopulationState() {
+        try {
+            censusAnalyser.readFile(US_CENSUS_CSV_FILE_PATH, IndianStateCensusAnalyser.class);
+            String sortedData = censusAnalyser.SortedCode(IndiaCensusDAO.class);
+            IndianStateCensusAnalyser[] indianStateCensesAnalyzers = new Gson().fromJson(sortedData, IndianStateCensusAnalyser[].class);
+            Assert.assertEquals("North Carolina", indianStateCensesAnalyzers[0].getState()); }
+        catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
