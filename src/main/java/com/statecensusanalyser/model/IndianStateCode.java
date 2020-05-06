@@ -4,34 +4,23 @@ import com.opencsv.bean.CsvBindByName;
 
 public class IndianStateCode
 {
-    @CsvBindByName(column="SrNo",required = true)
-    public String srNo;
+    @CsvBindByName(column = "SrNo", required = true)
+    public int srNo;
 
-    @CsvBindByName (column ="StateName",required = true)
+    @CsvBindByName(column = "StateName", required = true)
     public String stateName;
 
-    @CsvBindByName(column = "TIN",required = true)
-    public String tin;
+    @CsvBindByName(column = "TIN", required = true)
+    public int tin;
 
-    @CsvBindByName(column = "StateCode",required = true)
+    @CsvBindByName(column = "StateCode", required = true)
     public String stateCode;
 
-    @Override
-    public String toString()
-    {
-        return "IndianStateCode{" +
-                "srNo='" + srNo + '\'' +
-                ", stateName='" + stateName + '\'' +
-                ", tin='" + tin + '\'' +
-                ", stateCode='" + stateCode + '\'' +
-                '}';
-    }
-
-    public String getSrNo() {
+    public int getSrNo() {
         return srNo;
     }
 
-    public void setSrNo(String srNo) {
+    public void setSrNo(int srNo) {
         this.srNo = srNo;
     }
 
@@ -43,11 +32,11 @@ public class IndianStateCode
         this.stateName = stateName;
     }
 
-    public String getTin() {
+    public int getTin() {
         return tin;
     }
 
-    public void setTin(String tin) {
+    public void setTin(int tin) {
         this.tin = tin;
     }
 
@@ -57,5 +46,15 @@ public class IndianStateCode
 
     public void setStateCode(String stateCode) {
         this.stateCode = stateCode;
+    }
+
+    @Override
+    public String toString() {
+        return "IndianStateCode{" +
+                "srNo=" + srNo +
+                ", stateName='" + stateName + '\'' +
+                ", tin=" + tin +
+                ", stateCode='" + stateCode + '\'' +
+                '}';
     }
 }

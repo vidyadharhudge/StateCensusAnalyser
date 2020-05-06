@@ -32,12 +32,9 @@ public class CensusAnalyser<E>
             ICSVBuilder icsvBuilder=CSVBuilderFactory.createCSVBuilder();
             Iterator<E>censusCsvIterator=icsvBuilder.getCSVfile(reader,csvClass);
             Iterable<E>iterable=()->censusCsvIterator;
-            while (censusCsvIterator.hasNext())
-            {
-                IndiaCensusDAO value=new IndiaCensusDAO((IndianStateCensusAnalyser) censusCsvIterator.next());
-                this.censusMap.put(value.getState(),(E)value);
-                censusCSVlist=censusMap.values().stream().collect(Collectors.toList());
-            }
+            StreamSupport.stream(iterable.spliterator(),false)
+                    .forEach(IndianStateCensesAnalyzer->{censusMap.put(IndianStateCensesAnalyzer,(E)new IndiaCensusDAO<E>(csvClass));});
+            censusCSVlist=censusMap.values().stream().collect(Collectors.toList());
             int noOfRecords=censusMap.size();
             return noOfRecords;
         } catch (IOException e) {
