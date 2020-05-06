@@ -20,15 +20,12 @@ public class CensusAnalyserTest {
         censusAnalyser = new CensusAnalyser();
     }
 
-
     /* Tc 1.1 :Given The State Census Csv File, Check To Ensure The Number Of Record Matches */
     @Test
     public void givenFilePath_WhenNoOfRecordMatches_ThenReturnTrue() {
         try {
             int noOfRecords = censusAnalyser.readFile(INDIA_CENSUS_CSV_FILE_PATH, IndianStateCensusAnalyser.class);
             Assert.assertEquals(29, noOfRecords);
-            int noOfFields = censusAnalyser.readFile(STATE_CODE_CSV_FILE, IndianStateCensusAnalyser.class);
-            Assert.assertEquals(37, noOfFields);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
@@ -132,8 +129,7 @@ public class CensusAnalyserTest {
             String sortedData = censusAnalyser.SortedCode(IndianStateCensusAnalyser.class);
             IndianStateCensusAnalyser[] indianStateCensesAnalyzers = new Gson().fromJson(sortedData, IndianStateCensusAnalyser[].class);
             System.out.println(indianStateCensesAnalyzers);
-           // Assert.assertEquals("Andhra Pradesh", indianStateCensesAnalyzers[0].getState());
-            Assert.assertEquals("West Bengal", indianStateCensesAnalyzers[28].getState());
+            Assert.assertEquals("Bihar", indianStateCensesAnalyzers[0].getState());
         } catch (CensusAnalyserException e) {
         }
     }
@@ -158,7 +154,7 @@ public class CensusAnalyserTest {
             censusAnalyser.readFile(INDIA_CENSUS_CSV_FILE_PATH, IndianStateCensusAnalyser.class);
             String sortedData = censusAnalyser.SortedCode(IndiaCensusDAO.class);
             IndianStateCensusAnalyser[] indianStateCensesAnalyzers = new Gson().fromJson(sortedData, IndianStateCensusAnalyser[].class);
-            Assert.assertEquals(607688, indianStateCensesAnalyzers[0].getPopulation());
+            Assert.assertEquals(103804637, indianStateCensesAnalyzers[0].getPopulation());
         } catch (CensusAnalyserException e) {
         }
     }
@@ -175,4 +171,21 @@ public class CensusAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    /* T.C 7 :Indian Census Area In Sorted Form  */
+    @Test
+    public void givenIndianCensusData_WhenSorted_ThenShouldReturnSortedArea() {
+        try {
+            censusAnalyser.readFile(INDIA_CENSUS_CSV_FILE_PATH, IndianStateCensusAnalyser.class);
+            String sortedData = censusAnalyser.SortedCode(IndiaCensusDAO.class);
+            IndianStateCensusAnalyser[] indianStateCensesAnalyzers = new Gson().fromJson(sortedData, IndianStateCensusAnalyser[].class);
+            Assert.assertEquals(94163, indianStateCensesAnalyzers[0].getArea());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 }
