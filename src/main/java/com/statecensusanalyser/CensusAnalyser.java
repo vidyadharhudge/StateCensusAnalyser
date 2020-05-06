@@ -13,9 +13,8 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class CensusAnalyser<E> {
-
     List<E>censusCSVlist=null;
-    Map<String,E> censusMap;
+    Map<Object,E> censusMap;
 
     public static void main(String[] args) {
         System.out.println("Welcome To Indian State Censes Analyser"); }
@@ -33,7 +32,8 @@ public class CensusAnalyser<E> {
                 this.censusMap.put(value.getState(),(E)value);
                 censusCSVlist=censusMap.values().stream().collect(Collectors.toList()); }
             int noOfRecords=censusMap.size();
-            return noOfRecords; }
+            return noOfRecords;
+        }
         catch (IOException e) {
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, "Enter Correct File And Type For State Censes Data"); }
         catch (RuntimeException  e) {
@@ -47,23 +47,25 @@ public class CensusAnalyser<E> {
         return numberOfEntries; }
 
     // State Wise Sorted Code
-    public String SortedCode(Object E) {
+    public String SortedCode(int Numbers,Object E) {
         if (censusCSVlist.size()==0 || censusCSVlist==null) {
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.NO_CENSUS_DATA,"No Data Is Prsent"); }
         Comparator<E>indianStateCodeComparator=Comparator.comparing(censusCsv->E.toString());
-        this.sort(indianStateCodeComparator,censusCSVlist);
+        this.sort(Numbers,censusCSVlist);
         String sortedCensusJson=new Gson().toJson(censusCSVlist);
         return sortedCensusJson; }
 
     // Sorting Methode
-    public void sort(Comparator<E>indianStateCodeComparator,List<E>censusCSVlist) {
-        for (int i = 0; i<censusCSVlist.size()-1; i++) {
+    public void sort(int numbers,List<E>censusCSVlist) {
+        for (int i = 0; i<censusCSVlist.size(); i++) {
             for (int j=0;j<censusCSVlist.size()-i-1; j++) {
-                E censesAnalyzer1=censusCSVlist.get(j);
-                E censesAnalyzer2=censusCSVlist.get(j+1);
-                if(indianStateCodeComparator.compare(censesAnalyzer1,censesAnalyzer2)>0) {
-                    censusCSVlist.set(j,censesAnalyzer2);
-                    censusCSVlist.set(j+1,censesAnalyzer1); }
+                String censesAnalyzer1[]=censusCSVlist.get(i).toString().split(",");
+                String censesAnalyzer2[]=censusCSVlist.get(j).toString().split(",");
+                if(censesAnalyzer1[1].compareToIgnoreCase(censesAnalyzer2[1])<0) {
+                    E Data=censusCSVlist.get(i);
+                    E Data1=censusCSVlist.get(j);
+                    censusCSVlist.set(j,Data);
+                    censusCSVlist.set(i,Data1); }
             }
         }
     }

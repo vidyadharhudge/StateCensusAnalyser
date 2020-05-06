@@ -162,7 +162,5 @@ public class IndiaCensusDAO<E>
                 "," + PopulationDensity +
                 "," + LandArea +
                 "," + HousingDensity ;
-
-
     }
 }
