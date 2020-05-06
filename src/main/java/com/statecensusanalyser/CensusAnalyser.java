@@ -14,9 +14,8 @@ import java.util.stream.StreamSupport;
 
 public class CensusAnalyser<E>
 {
-
     List<E>censusCSVlist=null;
-    Map<String,E> censusMap;
+    Map<Object,E> censusMap;
     public static void main(String[] args)
     {
         System.out.println("Welcome To Indian State Censes Analyser");
@@ -36,17 +35,15 @@ public class CensusAnalyser<E>
             while (censusCsvIterator.hasNext())
             {
                 IndiaCensusDAO value=new IndiaCensusDAO((IndianStateCensusAnalyser) censusCsvIterator.next());
-                this.censusMap.put(value.state,(E)value);
+                this.censusMap.put(value.getState(),(E)value);
                 censusCSVlist=censusMap.values().stream().collect(Collectors.toList());
             }
             int noOfRecords=censusMap.size();
             return noOfRecords;
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, "Enter Correct File And Type For State Censes Data");
         }
-        catch (RuntimeException  e)
-        {
+        catch (RuntimeException  e) {
             throw new CensusAnalyserException(CensusAnalyserException.ExceptionType.WRONG_DELIMITER, "Check Delimiter And Header For State Censes Data");
         }
     }
@@ -69,6 +66,7 @@ public class CensusAnalyser<E>
         String sortedCensusJson=new Gson().toJson(censusCSVlist);
         return sortedCensusJson;
     }
+
     // Sorting Methode
     public void sort(Comparator<E>indianStateCodeComparator,List<E>censusCSVlist)
     {
