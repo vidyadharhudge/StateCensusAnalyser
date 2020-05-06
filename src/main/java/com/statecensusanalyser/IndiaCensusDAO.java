@@ -2,9 +2,10 @@ package com.statecensusanalyser;
 
 import com.statecensusanalyser.model.IndianStateCensusAnalyser;
 import com.statecensusanalyser.model.IndianStateCode;
+import com.statecensusanalyser.model.USCensusData;
 
 public class IndiaCensusDAO<E>
-{ private String state;
+{  private String state;
     private int population;
     private int area;
     private int density;
@@ -12,8 +13,11 @@ public class IndiaCensusDAO<E>
     private int srNo;
     private String stateName;
     private int tin;
+    public String State;
+
     IndianStateCensusAnalyser indianStateCensesAnalyzer;
     IndianStateCode indianStateCode;
+    USCensusData usCensusData;
 
     public IndiaCensusDAO(IndianStateCensusAnalyser indianStateCensesAnalyzer) {
         state = indianStateCensesAnalyzer.getState();
@@ -27,9 +31,14 @@ public class IndiaCensusDAO<E>
         stateName = indianStateCode.getStateName();
         tin = indianStateCode.getTin();
     }
+    public IndiaCensusDAO(USCensusData usCensusData)
+    {
+        State=usCensusData.getState();
+    }
 
     public IndiaCensusDAO(Class<E> csvClass) {
     }
+
     public String getState () {
         return state;
     }

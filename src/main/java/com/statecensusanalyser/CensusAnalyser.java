@@ -22,6 +22,7 @@ public class CensusAnalyser<E>
 
     public CensusAnalyser() {
         censusMap=new HashMap<>(); }
+    // public enum Country{INDIA,US}
 
     public int readFile(String filePath, Class<E>csvClass) {
         try {
@@ -67,5 +68,4 @@ public class CensusAnalyser<E>
                     censusCSVlist.set(j,censesAnalyzer2);
                     censusCSVlist.set(j+1,censesAnalyzer1); } } } }
 }
-
 
