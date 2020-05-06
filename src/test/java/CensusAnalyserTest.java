@@ -5,6 +5,7 @@ import com.statecensusanalyser.IndiaCensusDAO;
 import com.statecensusanalyser.exception.CensusAnalyserException;
 import com.statecensusanalyser.model.IndianStateCensusAnalyser;
 import com.statecensusanalyser.model.IndianStateCode;
+import com.statecensusanalyser.model.USCensusData;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -184,8 +185,4 @@ public class CensusAnalyserTest {
             e.printStackTrace();
         }
     }
-
-
-
-
 }

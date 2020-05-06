@@ -10,4 +10,5 @@ public class FilePath
     public static final String WRONG_CSV_FILE_PATHS="./src/test/resources/StateCode1.csv";
     public static final String WRONG_CSV_FILE_TYPES="./src/test/resources/StateCode.csv.cs";
     public static final String WRONG_DELIMITER_FILES="./src/test/resources/StateCodeDataWithWrongDelimiter.csv";
+    public static final String US_CENSUS_CSV_FILE_PATH="./src/test/resources/USCensusData.csv";
 }
