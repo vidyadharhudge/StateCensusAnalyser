@@ -29,6 +29,7 @@ public class CensusAnalyserTest {
         catch (CensusAnalyserException e) {
             e.printStackTrace(); }
     }
+
     /* T.C 1.2 :Given State Censes Csv File Is Incorrect Then Returns Custom Exception */
     @Test
     public void givenStateCensusData_WhenWithWrongFile_ThenShouldThrowException() {
@@ -135,6 +136,7 @@ public class CensusAnalyserTest {
         catch (CensusAnalyserException e) {
         }
     }
+
     /* T.C 5 :Indian Census Population In Sorted Form  */
     @Test
     public void givenIndianCensusCode_WhenSorted_ThenShouldReturnSortedPopulation() {
@@ -146,6 +148,7 @@ public class CensusAnalyserTest {
          catch (CensusAnalyserException e) {
         }
     }
+
     /* T.C 6 :Indian Census Density In Sorted Form  */
     @Test
     public void givenIndianCensusData_WhenSorted_ThenShouldReturnSortedDensity() {
@@ -193,6 +196,7 @@ public class CensusAnalyserTest {
         catch (CensusAnalyserException e) {
         }
     }
+
     /* Tc 10.1 :Given The US Census Csv File, Check To Sorted Area State */
     @Test
     public void givenUsCensusData_WhenSorted_ThenShouldReturnSortedArea() {
@@ -204,6 +208,7 @@ public class CensusAnalyserTest {
         catch (CensusAnalyserException e) {
         }
     }
+
     /* Tc 10.2 :Given The US Census Csv File, Check To Sorted Area State */
     @Test
     public void givenUsCensusData_WhenSorted_ThenShouldReturnSortedDensity() {
@@ -211,7 +216,7 @@ public class CensusAnalyserTest {
             censusAnalyser.readFile(US_CENSUS_CSV_FILE_PATH, USCensusData.class);
             String sortedData = censusAnalyser.SortedCode(10,USCensusData.class);
             IndiaCensusDAO[] indianStateCensesAnalyzers = new Gson().fromJson(sortedData, IndiaCensusDAO[].class);
-            Assert.assertEquals(38.05, indianStateCensesAnalyzers[50].getPopulationDensity()); }
+            Assert.assertEquals(3805, indianStateCensesAnalyzers[50].getPopulationDensity()); }
         catch (CensusAnalyserException e) {
         }
     }
@@ -225,7 +230,6 @@ public class CensusAnalyserTest {
             String sortedData = censusAnalyser.SortedCode(3, IndiaCensusDAO.class);
             IndianStateCensusAnalyser[] indianStateCensesAnalyzers = new Gson().fromJson(sortedData, IndianStateCensusAnalyser[].class);
             Assert.assertEquals(1980602, indianStateCensesAnalyzers[28].getPopulation());
-
             censusAnalyser.readFile(US_CENSUS_CSV_FILE_PATH, USCensusData.class);
             String UssortedData = censusAnalyser.SortedCode(10, USCensusData.class);
             IndiaCensusDAO[] USStateCensesAnalyzers = new Gson().fromJson(UssortedData, IndiaCensusDAO[].class);

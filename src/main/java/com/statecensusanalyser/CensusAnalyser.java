@@ -13,7 +13,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public class CensusAnalyser<E> {
+public class CensusAnalyser<E>
+{
     List<E>censusCSVlist=null;
     Map<Object,E> censusMap;
 
@@ -22,6 +23,7 @@ public class CensusAnalyser<E> {
 
     public CensusAnalyser() {
         censusMap=new HashMap<>(); }
+
     public int readFile(String filePath, Class<E>csvClass) {
         try {
             BufferedReader reader = Files.newBufferedReader(Paths.get(filePath));
